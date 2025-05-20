@@ -282,7 +282,7 @@ console.log(verifincandoPares(1,2,3,4,5,6,7,8,9,10))
 
 // Desestruturação (ou destructuring)
 // extrair valores de arrays ou propriedades de objetos e armazená-los em variáveis individuais
-
+'use strict'
 
 const daditos = {
     firstName : "Renan" ,
@@ -452,3 +452,167 @@ console.log(Object.getPrototypeOf(arr))
 
 let objj = {}
 console.log(Object.getPrototypeOf(objj))
+
+const arrayzao = []
+
+console.log(arrayzao.length)
+console.log(Object.getPrototypeOf(arrayzao))
+console.log(Object.getPrototypeOf(arrayzao) == Array.prototype) // verificando se a variavel arrayzao herda de Array,se é do mesmo tipo que uma array
+
+// Mais sobre prototype
+//Protótipos são o mecanismo pelo qual objetos JavaScript 
+// herdam características uns dos outros.
+// a gente pode ver todos os métodos que estão disponível para gente usar dependendo de cada tipo.
+
+const objeto = {
+    a : "Renan"
+}
+console.log(Object.getPrototypeOf(objeto))
+console.log(Object.getPrototypeOf(objeto) == Object.prototype)
+
+const secondObject = Object.create(objeto)
+console.log(Object.getPrototypeOf(secondObject) == Object.prototype)
+
+// 7 funções como classe
+function Veiculo (modelo,marca){
+    this.modelo = modelo
+    this.marca = marca
+}
+
+const ferrariz = new Veiculo("Ferrari 1920", "Spider")
+console.log(ferrariz)
+
+// 8 metodo na função construtora
+Veiculo.prototype.acelerar = function(){
+    console.log("Acelerandoooooooo")
+};
+
+console.log(Veiculo)
+ferrariz.acelerar()
+
+// Classes ES6 - abandoram a fuctions e começaram a usar as Classes 
+// aqui é parecida com a POO das outras linguagens,temos o método constructor
+// alem da instancia new
+
+class carroClase {
+    constructor(modelo,cor,anoLancamento){
+        this.modelo = modelo
+        this.cor = cor
+        this.anoLancamento = anoLancamento
+    }
+}
+
+let corsa = new carroClase("camaro","Amarelo",1900)
+console.log(corsa)
+
+console.log(Object.getPrototypeOf(corsa))
+
+// 10 - mais sobre classes
+
+class Moto {
+    constructor(modelo,capacete,cor,eixo){
+        this.modelo = modelo
+        this.capacete = capacete
+        this.cor = cor
+    }
+
+    acelerar(){
+        console.log(`o modelo : ${this.modelo}, da cor ${this.cor} estpa acelerandooooooo,eixo ${this.eixo}`)
+        
+    }
+}
+
+let xj = new Moto('Yamaya',"Verde","Vermelho",4)
+console.log(xj)
+
+Moto.prototype.eixo = 4 // usando o protoype para definir os eixos 
+
+console.log(xj.eixo)
+xj.acelerar()
+
+// override nas propriedades via Protype
+// mudando os valores das propriedades do construtor utilizando o prototype
+
+class Humano {
+    constructor(nome,idade,anoNascimento){
+        this.nome = nome
+        this.idade = idade
+        this.anoLancamento = anoNascimento
+    }
+}
+
+
+const mulher = new Humano("Emily",18,2007)
+console.log(mulher)
+
+console.log(Humano.prototype.idade)
+
+Humano.prototype.idade = 'Não sei' // definindo a propriedade idade de humano
+
+console.log(mulher.idade)
+
+console.log(Humano.prototype)
+
+
+// symbols
+// quando utilizamos o recurso de Symbol com classe é 
+// possível criar uma propriedade única e imutável
+// isso é util quando há algum dado que se repetirá em todos os obetos 
+// criados a partir da classe
+// De modo bem simples e direto, Symbol (símbolo) é um 
+// tipo primitivo que armazena um valor único.
+//  Seu propósito é esse, servir como um identificador único
+class Aviao{
+    constructor(marca,turbinas){
+        this.marca = marca 
+        this.turbinas = turbinas
+    }
+}
+
+const asas = Symbol()
+const pilotos = Symbol()
+
+Aviao.prototype[asas] = 2;
+Aviao.prototype[pilotos] = 3
+
+const boeing = new Aviao("Boeing",10)
+console.log(boeing)
+
+console.log(boeing[pilotos])
+console.log(boeing[asas])
+
+// Exercicios com Symbol(valor Unico)
+
+let meuSimbolo = Symbol("a")
+console.log(meuSimbolo)
+
+let seuSimbolo = Symbol("b")
+console.log(seuSimbolo)
+
+console.log(meuSimbolo == seuSimbolo)
+
+// ex2
+const numeroChassi = Symbol('numeroChassi')
+const carro = {
+    modelo : "Ferrari",
+    [numeroChassi] : 40
+}
+
+console.log(carro[numeroChassi])
+
+// ex3
+const id = Symbol('id')
+const propriedadeSimbol = {
+    nome : "Renan",
+    idade : "lucas",
+    [id] : 90    
+}
+
+console.log(propriedadeSimbol[id]) // conseguimos imprimir
+
+console.log(Object.keys(propriedadeSimbol))
+console.log(Object.getOwnPropertySymbols(propriedadeSimbol))
+
+for(const key in propriedadeSimbol){
+    console.log(key) // se colocarmos id aqui,não conseguimos acessar aqui
+}
