@@ -616,3 +616,87 @@ console.log(Object.getOwnPropertySymbols(propriedadeSimbol))
 for(const key in propriedadeSimbol){
     console.log(key) // se colocarmos id aqui,não conseguimos acessar aqui
 }
+
+// Getter e Setter são métodos bem famosos em POO
+// get é um método utilizado para exibir o valor de alguma propriedade
+// set é utilizado para alterar o valor
+
+class Post {
+    constructor(titulo,descricao,tags){
+        this.titulo = titulo
+        this.descricao = descricao
+        this.tags = tags
+    }
+
+    get exibirTitulo(){
+        return `Você está lendo: ${this.titulo}`;
+    }
+
+    set AdicionarTags(tags){
+        const tagsArray = tags.split(", ")
+        this.tags = tagsArray
+        return tagsArray
+
+    }
+}
+
+
+const myPost = new Post("Algum post", "Sempre Postando", "#RF")
+console.log(myPost)
+
+console.log(myPost)
+console.log(myPost.exibirTitulo) // definido como método mais sendo chamando como propriedade
+
+myPost.AdicionarTags = "Renan,Python"
+
+
+class Pessoa{
+    constructor(nome,corPele,idade,funcao){
+        this.nome = nome
+        this.corPele = corPele
+        this.idade = idade
+        this.funcao = funcao
+    }
+
+
+    get pegandoNome (){
+       return `Olá ${this.nome}`
+    }
+
+    get CorPele (){
+        return `A sua cor de pele é ${this.corPele}`
+    }
+
+    get getIdade (){
+        return `A minha idade é ${this.idade}`
+    }
+
+    set setFuncao (funcao){
+        const arrayFuncao = funcao.split(".")
+        this.funcao = arrayFuncao
+        return funcao
+    }
+}
+
+
+const professor = new Pessoa("Renan","Moreno", "18", "Macho")
+console.log(professor.getIdade)
+
+professor.setFuncao = 'Renan.Gabriel,Rodrigues'
+console.log(professor.funcao)
+
+
+class comida {
+    constructor(nome,qtd){
+        this.nome = nome
+        this.qtd = qtd
+    }
+
+    get pegando_nome(){
+        return `Olá ${this.nome}`
+    }
+
+    set pegandoQuantidade(qtd){
+        
+    }
+}
